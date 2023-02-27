@@ -46,7 +46,18 @@ router.get('/', async (req, res) => {
 
 // Get a TODO by id
 router.get('/:id', async (req, res) => {
-  //
+  await Todo.find({ _id: req.params.id }, (err, data) => {
+    if (err) {
+      res.status(500).json({
+        error: 'There was a server side error!',
+      })
+    } else {
+      res.status(200).json({
+        result: data,
+        message: 'Success!',
+      })
+    }
+  })
 })
 
 // POST A TODO
@@ -133,7 +144,17 @@ router.put('/:id', async (req, res) => {
 
 // DELETE TODO
 router.delete('/:id', async (req, res) => {
-  //
+  await Todo.deleteOne({ _id: req.params.id }, (err) => {
+    if (err) {
+      res.status(500).json({
+        error: 'There was a server side error!',
+      })
+    } else {
+      res.status(200).json({
+        message: 'Todo was deleted successfully!',
+      })
+    }
+  })
 })
 
 module.exports = router

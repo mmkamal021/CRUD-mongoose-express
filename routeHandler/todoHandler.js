@@ -14,14 +14,35 @@ router.get('/:id', async (req, res) => {
   //
 })
 
-// POST TODO
+// POST A TODO
 router.post('/', async (req, res) => {
-  //
+  const newTodo = new Todo(req.body)
+  await newTodo.save((err) => {
+    if (err) {
+      res.status(500).json({
+        error: 'There was a server side error!',
+      })
+    } else {
+      res.status(200).json({
+        message: 'Todo was insserted successfully!',
+      })
+    }
+  })
 })
 
 // POST MULTIPLE TODO
 router.post('/all', async (req, res) => {
-  //
+  await Todo.insertMany(req.body, (err) => {
+    if (err) {
+      res.status(500).json({
+        error: 'There was a server side error!',
+      })
+    } else {
+      res.status(200).json({
+        message: 'Todos were insserted successfully!',
+      })
+    }
+  })
 })
 
 // PUT TODO

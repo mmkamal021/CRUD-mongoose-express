@@ -1,13 +1,13 @@
-const mongoose = requuire('mongoose')
+const mongoose = require('mongoose')
 
 const todoSchema = mongoose.Schema({
   title: {
-    ntype: String,
+    type: String,
     required: true,
   },
   description: String,
   status: {
-    type: Sting,
+    type: String,
     enum: ['active', 'inactive'],
   },
   date: {
